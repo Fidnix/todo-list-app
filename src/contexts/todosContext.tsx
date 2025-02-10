@@ -5,6 +5,7 @@ interface TodosContextType {
   todos: Todo[];
   addTodo: (todo: Todo) => void;
   toggleDone: (id: number) => void;
+  deleteTodo: (id: number) => void;
   filterText: string;
   setFilterText: React.Dispatch<React.SetStateAction<string>>;
   filteredTodos: Todo[];
@@ -48,12 +49,19 @@ const TodosProvider = ({ children }: { children: ReactNode }) => {
     localStorage.setItem("todos", JSON.stringify(newTodos));
   };
 
+  const deleteTodo = (id: number) => {
+    const newTodos = todos.filter((t) => t.id != id);
+    setTodos(newTodos);
+    localStorage.setItem("todos", JSON.stringify(newTodos));
+  };
+
   return (
     <TodosContext.Provider
       value={{
         todos,
         addTodo,
         toggleDone,
+        deleteTodo,
         filterText,
         setFilterText,
         filteredTodos,

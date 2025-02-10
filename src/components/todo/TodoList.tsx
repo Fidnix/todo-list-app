@@ -1,10 +1,12 @@
 import { ScrollArea } from "@/components/ui/scroll-area";
+import { X } from "lucide-react";
 import {
   Accordion,
   AccordionContent,
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
+import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
 
 import { useContext } from "react";
@@ -14,22 +16,38 @@ import { TodosContext } from "@/contexts/todosContext";
 function TodoItem({
   todo,
   doneAction,
+  deleteTodo,
 }: {
   todo: Todo;
   doneAction: () => void;
+  deleteTodo: () => void;
 }) {
   const { description, isDone, name } = todo;
   return (
     <AccordionItem value={`elem-${todo.id}`}>
-      <div className="gap-4 flex items-center">
+      <div className="gap-4 grid grid-cols-[min-content_1fr_min-content] items-center w-full">
         <Checkbox
           checked={isDone}
           onCheckedChange={doneAction}
           onClick={(e) => e.stopPropagation()}
+          className="flex-grow-0"
         />
-        <AccordionTrigger className="flex-1 text-left">
-          <p className="text-lg font-semibold w-full">{name}</p>
+        <AccordionTrigger className="text-left">
+          <p
+            className={`text-lg font-semibold w-full ${
+              isDone ? "line-through" : ""
+            }`}
+          >
+            {name}
+          </p>
         </AccordionTrigger>
+        <Button
+          className="w-min h-min"
+          variant="destructive"
+          onClick={deleteTodo}
+        >
+          <X />
+        </Button>
       </div>
       <AccordionContent>
         <p className="leading-7 [&:not(:first-child)]:mt-6 w-full text-left p-4">
@@ -41,9 +59,12 @@ function TodoItem({
 }
 
 function TodoList() {
-  const { filteredTodos, toggleDone } = useContext(TodosContext) ?? {
+  const { filteredTodos, toggleDone, deleteTodo } = useContext(
+    TodosContext
+  ) ?? {
     todos: [],
     toggleDone: (_: number) => {},
+    deleteTodo: (_: number) => {},
     filteredTodos: [],
   };
 
@@ -59,6 +80,7 @@ function TodoList() {
               todo={todo}
               key={index}
               doneAction={() => toggleDone(todo.id)}
+              deleteTodo={() => deleteTodo(todo.id)}
             />
           ))}
         </Accordion>
