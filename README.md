@@ -48,10 +48,3 @@ export default tseslint.config({
   },
 })
 ```
-## ToDo
-
-- [ ] Styles
-- [ ] Filtered search
-- [ ] LocalStorage
-- [ ] 
-- [ ] 

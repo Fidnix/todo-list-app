@@ -15,7 +15,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { MouseEventHandler, useContext, useState } from "react";
 import { TodosContext } from "@/contexts/todosContext";
 
-function CreateDialog() {
+function TodoAdder() {
   const [name, setName] = useState("Task's name");
   const [description, setDescription] = useState("Task");
 
@@ -63,13 +63,15 @@ function CreateDialog() {
           <DialogClose asChild>
             <Button variant="outline">Close</Button>
           </DialogClose>
-          <Button onClick={handleSubmit} variant="secondary">
-            Create todo
-          </Button>
+          <DialogClose asChild>
+            <Button onClick={handleSubmit} variant="secondary">
+              Create todo
+            </Button>
+          </DialogClose>
         </DialogFooter>
       </DialogContent>
     </Dialog>
   );
 }
 
-export default CreateDialog;
+export default TodoAdder;

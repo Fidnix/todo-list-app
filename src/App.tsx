@@ -1,6 +1,6 @@
 import "./App.css";
 
-import CreateDialog from "./components/todo/CreatingTodoDialog";
+import TodoAdder from "./components/todo/TodoAdder";
 import TodoCounter from "./components/todo/TodoCounter";
 import TodoList from "./components/todo/TodoList";
 import TodoSearch from "./components/todo/TodoSearch";
@@ -17,7 +17,7 @@ function App() {
         <TodoCounter />
         <TodoSearch />
         <TodoList />
-        <CreateDialog />
+        <TodoAdder />
       </main>
     </TodosProvider>
   );
